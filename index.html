@@ -44,12 +44,26 @@ button:hover { background: #0a8a7b; }
 <button onclick="openChat()">Chatear</button>
 
 <script>
+const params = new URLSearchParams(window.location.search);
+const roomFromUrl = params.get("room");
+
+// 🔹 SI YA VIENE EL ROOM → ENTRAR DIRECTO AL CHAT
+if (roomFromUrl) {
+    window.location.href = `chat.html?room=${roomFromUrl}`;
+}
+
 function openChat() {
     const roomId = 'room_' + Math.random().toString(36).substring(2, 10);
-    const link = `${location.origin}${location.pathname.replace('index.html','')}chat.html?room=${roomId}`;
-    prompt("Comparte este link con la otra persona:", link);
+    const chatUrl = `${location.origin}${location.pathname.replace('index.html','')}chat.html?room=${roomId}`;
+
+    alert("Comparte este link con la otra persona:\n\n" + chatUrl);
+
+    // Entrar automáticamente
+    window.location.href = chatUrl;
 }
 </script>
+
+
 
 </body>
 </html>
